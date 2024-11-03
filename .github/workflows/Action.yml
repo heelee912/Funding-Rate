@@ -1,0 +1,12 @@
+name: Action
+
+on:
+  workflow_dispatch:  # 수동 트리거 추가
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+          pip install ccxt
+          
+      - name: Run Funding Rate Trade Script
+        run: python s.py
