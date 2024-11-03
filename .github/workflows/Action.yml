@@ -8,5 +8,5 @@ on:
           pip install requests
           pip install ccxt
           
-      - name: Run Funding Rate Trade Script
+      - name: Run Funding Rate Script
         run: python s.py
