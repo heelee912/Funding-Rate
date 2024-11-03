@@ -1,7 +1,7 @@
 import ccxt
 
-# 바이낸스 선물 거래소 객체 생성
-exchange = ccxt.binance({
+# Bybit 선물 거래소 객체 생성
+exchange = ccxt.bybit({
     'options': {
         'defaultType': 'future',  # 선물 거래를 위한 설정
     },
@@ -10,15 +10,14 @@ exchange = ccxt.binance({
 # 거래소의 시장 데이터 로드
 exchange.load_markets()
 
-# 조회할 암호화폐 심볼 리스트
-symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT']
+# 조회할 선물 시장 심볼 리스트
+symbols = ['BTC/USDT:USDT', 'ETH/USDT:USDT', 'SOL/USDT:USDT', 'BNB/USDT:USDT']
 
 def fetch_funding_rate(symbol):
     try:
-        # 바이낸스 선물 API 엔드포인트를 직접 호출
-        url = f"https://fapi.binance.com/fapi/v1/premiumIndex?symbol={symbol}"
-        response = exchange.fetch(url)
-        funding_rate = float(response['lastFundingRate'])
+        # 펀딩비율 정보 조회
+        funding_info = exchange.fetch_funding_rate(symbol)
+        funding_rate = funding_info['fundingRate']
         return funding_rate
     except Exception as e:
         print(f"{symbol}의 펀딩비율을 가져오는 중 오류 발생: {e}")
