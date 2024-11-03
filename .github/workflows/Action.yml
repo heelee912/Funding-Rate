@@ -3,10 +3,23 @@ name: Action
 on:
   workflow_dispatch:  # 수동 트리거 추가
 
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # 코드를 체크아웃하여 작업에서 사용할 수 있게 함
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # 사용하고자 하는 Python 버전을 지정 (필요에 맞게 조정)
+
       - name: Install dependencies
         run: |
           pip install requests
           pip install ccxt
-          
+
       - name: Run Funding Rate Script
         run: python s.py
